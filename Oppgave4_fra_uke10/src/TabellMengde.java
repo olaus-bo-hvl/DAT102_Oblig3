@@ -1,6 +1,11 @@
 public class TabellMengde<T> implements MengdeADT<T> {
 
-    int antall = 0;
+    private int antall = 0;
+    private T[] tabell;
+
+    public TabellMengde() {
+        tabell = (T[]) new Object[10];
+    }
 
     @Override
     public boolean erTom() {
@@ -9,6 +14,13 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public boolean inneholder(T element) {
+        int i = 0;
+        while (i < antall) {
+            if (tabell[i] == element) {
+                return true;
+            }
+            i++;
+        }
         return false;
     }
 
@@ -44,7 +56,20 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public void leggTil(T element) {
+        if (antall == tabell.length) {
+            tabell = fullTabell(tabell);
+        }
 
+        boolean sjekk = true;
+        for (T i : tabell) {
+            if (i.equals(element)) {
+                sjekk = false;
+            }
+        }
+        
+        if (sjekk == true) {
+            tabell[antall] = element;
+        }
     }
 
     @Override
@@ -64,6 +89,18 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public int antallElementer() {
-        return 0;
+        return antall;
+    }
+
+    public T[] fullTabell(T[] fullTab) {
+        T[] nyTab = (T[]) new Object[fullTab.length*2];
+
+        int j = 0;
+        for (T i : fullTab) {
+            nyTab[j] = fullTab[j];
+            j++;
+        }
+
+        return nyTab;
     }
 }
