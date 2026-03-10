@@ -43,12 +43,23 @@ public class LenketMengde<T> implements MengdeADT<T>{
 
     @Override
     public boolean erDelmengdeAv(MengdeADT<T> annenMengde) {
-        return false;
+        Node currentNode = firstNode;
+
+        while(currentNode != null){
+            if(!annenMengde.inneholder(currentNode.data)){
+                return false;
+            }
+            currentNode = currentNode.next;
+        }
+        return true;
     }
 
     @Override
     public boolean erLik(MengdeADT<T> annenMengde) {
-        return false;
+        if(numberOfEntries != annenMengde.antallElementer()){
+            return false;
+        }
+        return erDelmengdeAv(annenMengde);
     }
 
     @Override
@@ -93,6 +104,6 @@ public class LenketMengde<T> implements MengdeADT<T>{
 
     @Override
     public int antallElementer() {
-        return 0;
+        return numberOfEntries;
     }
 }
