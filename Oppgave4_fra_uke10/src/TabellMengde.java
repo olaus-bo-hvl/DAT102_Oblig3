@@ -62,6 +62,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
                 return;
             }
         }
+        
 
         if (antall == tabell.length) {
             tabell = fullTabell(tabell);
