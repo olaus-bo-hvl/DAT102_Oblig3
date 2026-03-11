@@ -26,43 +26,81 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public boolean erDelmengdeAv(MengdeADT<T> annenMengde) {
-        return false;
+        for (T i : tabell) {
+            if (i == null) {
+                continue;
+            }
+            if (!annenMengde.inneholder(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean erLik(MengdeADT<T> annenMengde) {
-        return false;
+        if (!this.erDelmengdeAv(annenMengde) && !annenMengde.erDelmengdeAv(this)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean erDisjunkt(MengdeADT<T> annenMengde) {
-        return false;
+        for (T i : tabell) {
+            if (i==null){continue;}
+            if (annenMengde.inneholder(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public MengdeADT<T> snitt(MengdeADT<T> annenMengde) {
-        return null;
+        TabellMengde<T> nyTabell = new TabellMengde<>();
+
+        for (T i : tabell) {
+            if (i==null){continue;}
+            if (annenMengde.inneholder(i)) {
+                nyTabell.leggTil(i);
+            }
+        }
+        return nyTabell;
     }
 
     @Override
     public MengdeADT<T> union(MengdeADT<T> annenMengde) {
-        return null;
+        TabellMengde<T> nyTabell = new TabellMengde<>();
+        nyTabell.leggTilAlleFra(this);
+        nyTabell.leggTilAlleFra(annenMengde);
+        return nyTabell;
     }
 
     @Override
     public MengdeADT<T> minus(MengdeADT<T> annenMengde) {
-        return null;
+        TabellMengde<T> nyTabell = new TabellMengde<>();
+        nyTabell.leggTilAlleFra(this);
+        for (T i : tabell) {
+            for (T j : annenMengde.tilTabell()) {
+                if (i == j) {
+                    nyTabell.fjern(i);
+                }
+            }
+        }
+        return nyTabell;
     }
 
     @Override
     public void leggTil(T element) {
+        if (element==null){return;}
+
         for (T i : tabell) {
             if (i == element) {
-                System.out.println("Elementet finnes allerede i mengden og blir derfor ikke lagt til.");
+                System.out.println("Elementet '" + element.toString() + "' finnes allerede i mengden og blir derfor ikke lagt til.");
                 return;
             }
         }
-
 
         if (antall == tabell.length) {
             tabell = fullTabell(tabell);
@@ -73,7 +111,10 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public void leggTilAlleFra(MengdeADT<T> annenMengde) {
-
+        if (this.erLik(annenMengde)) {return;}
+        for (T i : annenMengde.tilTabell()) {
+            this.leggTil(i);
+        }
     }
 
     @Override
@@ -100,7 +141,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public T[] tilTabell() {
-        return null;
+        return tabell;
     }
 
     @Override
