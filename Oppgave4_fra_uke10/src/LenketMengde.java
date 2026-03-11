@@ -64,16 +64,36 @@ public class LenketMengde<T> implements MengdeADT<T>{
 
     @Override
     public boolean erDisjunkt(MengdeADT<T> annenMengde) {
-        return false;
+        Node currentNode = firstNode;
+
+        while(currentNode != null){
+            if(annenMengde.inneholder(currentNode.data)){
+                return false;
+            }
+            currentNode = currentNode.next;
+        }
+        return true;
     }
 
     @Override
     public MengdeADT<T> snitt(MengdeADT<T> annenMengde) {
-        return null;
+
+        Node currentNode = firstNode;
+
+        LenketMengde<T> nyMengde = new LenketMengde<>();
+
+        while(currentNode != null){
+            if(annenMengde.inneholder(currentNode.data)){
+                nyMengde.leggTil(currentNode.data);
+            }
+            currentNode = currentNode.next;
+        }
+        return nyMengde;
     }
 
     @Override
     public MengdeADT<T> union(MengdeADT<T> annenMengde) {
+
         return null;
     }
 
@@ -83,8 +103,14 @@ public class LenketMengde<T> implements MengdeADT<T>{
     }
 
     @Override
-    public void leggTil(Object element) {
+    public void leggTil(T element) {
+        if(element != null && !inneholder(element)){
+            Node newNode = new Node(element);
+            newNode.next = firstNode;
+            firstNode = newNode;
 
+            numberOfEntries++;
+        }
     }
 
     @Override
