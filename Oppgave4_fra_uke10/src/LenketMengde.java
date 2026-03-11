@@ -94,12 +94,28 @@ public class LenketMengde<T> implements MengdeADT<T>{
     @Override
     public MengdeADT<T> union(MengdeADT<T> annenMengde) {
 
-        return null;
+        LenketMengde<T> nyMengde = new LenketMengde<>();
+
+        nyMengde.leggTilAlleFra(this);
+        nyMengde.leggTilAlleFra(annenMengde);
+
+        return nyMengde;
     }
 
     @Override
     public MengdeADT<T> minus(MengdeADT<T> annenMengde) {
-        return null;
+
+        Node currentNode = firstNode;
+
+        LenketMengde<T> nyMengde = new LenketMengde<>();
+
+        while(currentNode != null){
+            if(!annenMengde.inneholder(currentNode.data)){
+                nyMengde.leggTil(currentNode.data);
+            }
+            currentNode = currentNode.next;
+        }
+        return nyMengde;
     }
 
     @Override
@@ -115,17 +131,52 @@ public class LenketMengde<T> implements MengdeADT<T>{
 
     @Override
     public void leggTilAlleFra(MengdeADT<T> annenMengde) {
+        T[] tabell = annenMengde.tilTabell();
 
+        for(T element : tabell){
+            leggTil(element);
+        }
     }
 
     @Override
     public T fjern(T element) {
+        if(!inneholder(element)){
+            return null;
+        }
+        Node currentNode = firstNode;
+        Node previousNode = null;
+
+        while(currentNode != null){
+            if(currentNode.data.equals(element)){
+
+                if(previousNode == null){
+                    firstNode = currentNode.next;
+                } else{
+                    previousNode.next = currentNode.next;
+                }
+                numberOfEntries--;
+                return currentNode.data;
+            }
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+        }
+
         return null;
     }
 
     @Override
     public T[] tilTabell() {
-        return null;
+        T[] tabell =(T[]) new Object[numberOfEntries];
+
+        Node currentNode = firstNode;
+        int index = 0;
+
+        while(currentNode != null){
+            tabell[index] = currentNode.data;
+            index++;
+            currentNode = currentNode.next;
+        }
+        return tabell;
     }
 
     @Override
