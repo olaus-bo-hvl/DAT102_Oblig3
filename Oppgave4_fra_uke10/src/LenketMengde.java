@@ -99,7 +99,7 @@ public class LenketMengde<T> implements MengdeADT<T>{
 
     @Override
     public T[] tilTabell() {
-        return new T[0];
+        return null;
     }
 
     @Override

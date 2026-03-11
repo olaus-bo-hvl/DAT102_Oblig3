@@ -56,20 +56,18 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public void leggTil(T element) {
+        for (T i : tabell) {
+            if (i == element) {
+                System.out.println("Elementet finnes allerede i mengden og blir derfor ikke lagt til.");
+                return;
+            }
+        }
+
         if (antall == tabell.length) {
             tabell = fullTabell(tabell);
         }
-
-        boolean sjekk = true;
-        for (T i : tabell) {
-            if (i.equals(element)) {
-                sjekk = false;
-            }
-        }
-        
-        if (sjekk == true) {
-            tabell[antall] = element;
-        }
+        tabell[antall] = element;
+        antall++;
     }
 
     @Override
@@ -79,7 +77,24 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public T fjern(T element) {
-        return null;
+        int plass = 0;
+        boolean sjekk = true;
+        for (int i = 0; i < tabell.length; i++) {
+            if (tabell[i] == element) {
+                plass = i;
+                sjekk = false;
+            }
+        }
+
+        if (sjekk) {
+            return null;
+        }
+
+        for (int i = plass; i < tabell.length-1; i++) {
+            tabell[i] = tabell[i+1];
+        }
+        antall--;
+        return element;
     }
 
     @Override
