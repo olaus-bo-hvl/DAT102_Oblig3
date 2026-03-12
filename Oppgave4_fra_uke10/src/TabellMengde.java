@@ -16,7 +16,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
     public boolean inneholder(T element) {
         int i = 0;
         while (i < antall) {
-            if (tabell[i] == element) {
+            if (tabell[i]!=null && tabell[i].equals(element)) {
                 return true;
             }
             i++;
@@ -39,7 +39,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
     @Override
     public boolean erLik(MengdeADT<T> annenMengde) {
-        if (!this.erDelmengdeAv(annenMengde) && !annenMengde.erDelmengdeAv(this)) {
+        if (!this.erDelmengdeAv(annenMengde) || !annenMengde.erDelmengdeAv(this)) {
             return false;
         }
         return true;
@@ -57,12 +57,11 @@ public class TabellMengde<T> implements MengdeADT<T> {
     }
 
     @Override
-    public MengdeADT<T> snitt(MengdeADT<T> annenMengde) {
+    public TabellMengde<T> snitt(MengdeADT<T> annenMengde) {
         TabellMengde<T> nyTabell = new TabellMengde<>();
 
         for (T i : tabell) {
-            if (i==null){continue;}
-            if (annenMengde.inneholder(i)) {
+            if (i!=null && annenMengde.inneholder(i)) {
                 nyTabell.leggTil(i);
             }
         }
@@ -70,7 +69,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
     }
 
     @Override
-    public MengdeADT<T> union(MengdeADT<T> annenMengde) {
+    public TabellMengde<T> union(MengdeADT<T> annenMengde) {
         TabellMengde<T> nyTabell = new TabellMengde<>();
         nyTabell.leggTilAlleFra(this);
         nyTabell.leggTilAlleFra(annenMengde);
@@ -78,16 +77,16 @@ public class TabellMengde<T> implements MengdeADT<T> {
     }
 
     @Override
-    public MengdeADT<T> minus(MengdeADT<T> annenMengde) {
+    public TabellMengde<T> minus(MengdeADT<T> annenMengde) {
         TabellMengde<T> nyTabell = new TabellMengde<>();
-        nyTabell.leggTilAlleFra(this);
-        for (T i : tabell) {
-            for (T j : annenMengde.tilTabell()) {
-                if (i == j) {
-                    nyTabell.fjern(i);
-                }
+
+        for (int i = 0; i < antall; i++) {
+            T element = tabell[i];
+            if (!annenMengde.inneholder(element)) {
+                nyTabell.leggTil(element);
             }
         }
+
         return nyTabell;
     }
 
@@ -96,7 +95,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
         if (element==null){return;}
 
         for (T i : tabell) {
-            if (i == element) {
+            if (i!=null && i.equals(element)) {
                 System.out.println("Elementet '" + element.toString() + "' finnes allerede i mengden og blir derfor ikke lagt til.");
                 return;
             }
