@@ -37,8 +37,8 @@ public class Person {
         return false;
     }
 
-    public int snitt(Person annenPerson) {
-        int antall = 0;
+    public double snitt(Person annenPerson) {
+        double antall = 0;
 
         for (String i : getHobbyer()) {
             if (i!=null && annenPerson.inneholder(i)) {
@@ -48,10 +48,10 @@ public class Person {
         return antall;
     }
 
-    public int minus(Person annenPerson) {
-        int antall = 0;
+    public double minus(Person annenPerson) {
+        double antall = 0;
 
-        for (int i = 0; i < antall; i++) {
+        for (int i = 0; i < getHobbyer().length; i++) {
             String hobby = getHobbyer()[i];
             if (!annenPerson.inneholder(hobby)) {
                 antall++;

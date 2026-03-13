@@ -7,19 +7,21 @@ public class HobbyMatchMain {
 
         Person Endre = new Person("Endre", "Handball", "Trening", "Gaming");
         Person Olaus = new Person("Olaus", "Volleyball", "Gaming", "Tur");
-        Person Gunnar = new Person("Gunnar", "ingen", "nothing", "jepp");
+        Person Gunnar = new Person("Gunnar", "Gaming", "Trening", "Biljard", "Volleyball");
 
-        System.out.println("Match-verdien er på: " + match(Endre, Olaus));
-        System.out.println("Match-verdien er på: " + match(Olaus, Endre));
-        System.out.println("Match-verdien er på: " + match(Endre, Gunnar));
-        System.out.println("Match-verdien er på: " + match(Gunnar, Endre));
+        System.out.println("Endre og Olaus har en match-verdi på: " + match(Endre, Olaus));
+        System.out.println("Endre og Olaus har fremdeles en match-verdi på: " + match(Olaus, Endre));
+        System.out.println("Endre og Gunnar har en match-verdi på: " + match(Endre, Gunnar));
+        System.out.println("Gunnar og Olaus har en match-verdi på: " + match(Olaus, Gunnar));
+        System.out.println();
+        System.out.println("Gunnar og Endre har høyest match-verdi.");
     }
 
     static double match(Person a, Person b) {
-        int antallFelles;
-        int antallKunHosDenEne;
-        int antallKunHosDenAndre;
-        int antallTotalt;
+        double antallFelles;
+        double antallKunHosDenEne;
+        double antallKunHosDenAndre;
+        double antallTotalt;
 
         antallFelles = a.snitt(b);
         antallKunHosDenEne = a.minus(b);
@@ -27,6 +29,6 @@ public class HobbyMatchMain {
         antallTotalt = antallFelles+antallKunHosDenEne+antallKunHosDenAndre;
 
 
-        return antallFelles - (antallKunHosDenEne + antallKunHosDenAndre) /antallTotalt;
+        return (antallFelles - (antallKunHosDenEne + antallKunHosDenAndre) /antallTotalt);
     }
 }
