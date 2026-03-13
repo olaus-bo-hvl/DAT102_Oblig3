@@ -25,4 +25,28 @@ public class Person {
     public void setNavn(String navn) {
         this.navn = navn;
     }
+
+    public boolean inneholder(String element) {
+        int i = 0;
+        while (i < getHobbyer().length) {
+            if (getHobbyer()[i]!=null && getHobbyer()[i].equals(element)) {
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
+    public String[] snitt(Person annenPerson) {
+        String[] nyTabell = new String[getHobbyer().length + annenPerson.getHobbyer().length];
+
+        int j = 0;
+        for (String i : getHobbyer()) {
+            if (i!=null && annenPerson.inneholder(i)) {
+                nyTabell[j] = i;
+                j++;
+            }
+        }
+        return nyTabell;
+    }
 }

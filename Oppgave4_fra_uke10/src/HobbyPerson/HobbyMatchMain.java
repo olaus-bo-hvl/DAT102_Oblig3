@@ -2,8 +2,10 @@ package HobbyPerson;
 
 public class HobbyMatchMain {
 
+    Person Endre = new Person("Endre", "Handball", "Trening", "Gaming");
+
     public static void main(String[] args) {
-        //Person Endre = new Person("Endre", "Handball", "Trening", "Gaming");
+
 
     }
 
@@ -12,7 +14,11 @@ public class HobbyMatchMain {
         String[] antallKunHosDenEne;
         String[] antallKunHosDenAndre;
 
+
+
         
     }
+
+
 
 }
