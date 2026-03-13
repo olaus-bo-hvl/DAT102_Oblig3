@@ -8,7 +8,11 @@ public class HobbyMatchMain {
     }
 
     static double match(Person a, Person b) {
+        String[] antallFelles;
+        String[] antallKunHosDenEne;
+        String[] antallKunHosDenAndre;
 
+        
     }
 
 }

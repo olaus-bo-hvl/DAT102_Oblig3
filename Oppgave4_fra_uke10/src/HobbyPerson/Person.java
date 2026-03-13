@@ -1,7 +1,7 @@
 package HobbyPerson;
 
 public class Person {
-    
+
     private String navn;
     private String[] hobbyer;
 
