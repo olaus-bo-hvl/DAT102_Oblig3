@@ -130,10 +130,8 @@ public class TabellMengde<T> implements MengdeADT<T> {
         if (sjekk) {
             return null;
         }
-
-        for (int i = plass; i < tabell.length-1; i++) {
-            tabell[i] = tabell[i+1];
-        }
+        tabell[plass] = tabell[antall];
+        tabell[antall] = null;
         antall--;
         return element;
     }
