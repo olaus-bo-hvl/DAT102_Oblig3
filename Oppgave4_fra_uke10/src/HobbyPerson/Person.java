@@ -37,16 +37,27 @@ public class Person {
         return false;
     }
 
-    public String[] snitt(Person annenPerson) {
-        String[] nyTabell = new String[getHobbyer().length + annenPerson.getHobbyer().length];
+    public int snitt(Person annenPerson) {
+        int antall = 0;
 
-        int j = 0;
         for (String i : getHobbyer()) {
             if (i!=null && annenPerson.inneholder(i)) {
-                nyTabell[j] = i;
-                j++;
+                antall++;
             }
         }
-        return nyTabell;
+        return antall;
+    }
+
+    public int minus(Person annenPerson) {
+        int antall = 0;
+
+        for (int i = 0; i < antall; i++) {
+            String hobby = getHobbyer()[i];
+            if (!annenPerson.inneholder(hobby)) {
+                antall++;
+            }
+        }
+
+        return antall;
     }
 }
