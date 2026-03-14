@@ -1,78 +1,103 @@
 import java.util.Set;
+import java.util.HashSet;
 
 public class JavaSetToMengde<T> implements MengdeADT<T> {
-	
+
 	private Set<T> Mengde;
-	
+
 	public JavaSetToMengde() {
-		Mengde = new java.util.HashSet<T>();
+		Mengde = new HashSet<>();
 	}
-	boolean erTom(Set Mengde) {
-		
+
+	public boolean erTom() {
 		return Mengde.isEmpty();
 	}
-	boolean inneholder(T element) {
-		
-		return Mengde.contains(T element);
+
+	public boolean inneholder(T element) {
+		return Mengde.contains(element);
 	}
-	boolean erDelmengdeAv(MengdeADT<T> annenMengde) {
-		// Mengde c annenMengde
-		//        -
-		return Mengde.containsAll(annenMengde);
+
+	public boolean erDelmengdeAv(MengdeADT<T> annenMengde) {
+		for (T element : annenMengde.tilTabell()) {
+			if (!Mengde.contains(element)) {
+				return false;
+			}
+		}
+		return true;
 	}
-	boolean erLik(MengdeADT<T> annenMengde) {
-		// Mengde c annenMengde
-		return annenMengde.containsAll(Mengde);
+
+	public boolean erLik(MengdeADT<T> annenMengde) {
+		return this.erDelmengdeAv(annenMengde) &&
+				annenMengde.erDelmengdeAv(this);
 	}
-	boolean erDisjunkt(MengdeADT<T> annenMengde) {
-		
-		for (T element : annenMengde) {
+
+	public boolean erDisjunkt(MengdeADT<T> annenMengde) {
+		for (T element : annenMengde.tilTabell()) {
 			if (Mengde.contains(element)) {
 				return false;
 			}
 		}
 		return true;
 	}
-	MengdeADT<T> snitt(MengdeADT<T> annenMengde) {
-		
-		mengdeSnitt = new java.util.HashSet<T>();
-		for (T element : annenMengde) {
+
+	public MengdeADT<T> snitt(MengdeADT<T> annenMengde) {
+		JavaSetToMengde<T> resultat = new JavaSetToMengde<>();
+
+		for (T element : annenMengde.tilTabell()) {
 			if (Mengde.contains(element)) {
-				mengdeSnitt.add(T element);
+				resultat.leggTil(element);
 			}
 		}
-		return mengdeSnitt;
+
+		return resultat;
 	}
-	MengdeADT<T> union(MengdeADT<T> annenMengde) {
-		
-		mengdeUnion = new java.util.HashSet<>();
-		mengdeUnion.addAll(Mengde);
-		mengdeUnion.addAll(annenMengde);
+
+	public MengdeADT<T> union(MengdeADT<T> annenMengde) {
+		JavaSetToMengde<T> resultat = new JavaSetToMengde<>();
+
+		resultat.Mengde.addAll(this.Mengde);
+
+		for (T element : annenMengde.tilTabell()) {
+			resultat.leggTil(element);
+		}
+
+		return resultat;
 	}
-	MengdeADT<T> minus(MengdeADT<T> annenMengde) {
-		mengdeMinus = new java.util.HashSet<>();
-		mengdeMinus = Mengde.removeAll(annenMengde);
+
+	public MengdeADT<T> minus(MengdeADT<T> annenMengde) {
+		JavaSetToMengde<T> resultat = new JavaSetToMengde<>();
+
+		resultat.Mengde.addAll(this.Mengde);
+
+		for (T element : annenMengde.tilTabell()) {
+			resultat.Mengde.remove(element);
+		}
+
+		return resultat;
 	}
-	void leggTil(T element) {
-		if (!Mengde.contains(element)) {
+
+	public void leggTil(T element) {
+		Mengde.add(element);
+	}
+
+	public void leggTilAlleFra(MengdeADT<T> annenMengde) {
+		for (T element : annenMengde.tilTabell()) {
 			Mengde.add(element);
 		}
 	}
-	void leggTilAlleFra(MengdeADT<T> annenMengde) {
-		Mengde.addAll(annenMengde);
-	}
-	T fjern(T element) {
-		if (Mengde.contains(T element)) {
-			Mengde.remove(T element);
-		} else {
-			return null;
+
+	public T fjern(T element) {
+		if (Mengde.remove(element)) {
+			return element;
 		}
+		return null;
 	}
-	T[] tilTabell() {
-		T[] Tabell = Mengde.toArray();
-		return Tabell;
+	
+	public T[] tilTabell() {
+		return (T[]) Mengde.toArray(new Object[0]);
 	}
-	int antallElementer() {
+
+	public int antallElementer() {
 		return Mengde.size();
 	}
 }
