@@ -3,20 +3,20 @@ import java.util.HashSet;
 
 public class JavaSetToMengde<T> implements MengdeADT<T> {
 
-	private Set<T> Mengde;
+	private Set<T> mengde;
 
 	public JavaSetToMengde() {
-		Mengde = new HashSet<>();
+		mengde = new HashSet<>();
 	}
 	public boolean erTom() {
-		return Mengde.isEmpty();
+		return mengde.isEmpty();
 	}
 	public boolean inneholder(T element) {
-		return Mengde.contains(element);
+		return mengde.contains(element);
 	}
 	public boolean erDelmengdeAv(MengdeADT<T> annenMengde) {
-		for (T element : annenMengde.tilTabell()) {
-			if (!Mengde.contains(element)) {
+		for (T element : this.tilTabell()) {
+			if (!annenMengde.inneholder(element)) {
 				return false;
 			}
 		}
@@ -28,7 +28,7 @@ public class JavaSetToMengde<T> implements MengdeADT<T> {
 	}
 	public boolean erDisjunkt(MengdeADT<T> annenMengde) {
 		for (T element : annenMengde.tilTabell()) {
-			if (Mengde.contains(element)) {
+			if (mengde.contains(element)) {
 				return false;
 			}
 		}
@@ -38,7 +38,7 @@ public class JavaSetToMengde<T> implements MengdeADT<T> {
 		JavaSetToMengde<T> resultat = new JavaSetToMengde<>();
 
 		for (T element : annenMengde.tilTabell()) {
-			if (Mengde.contains(element)) {
+			if (mengde.contains(element)) {
 				resultat.leggTil(element);
 			}
 		}
@@ -47,7 +47,7 @@ public class JavaSetToMengde<T> implements MengdeADT<T> {
 	public MengdeADT<T> union(MengdeADT<T> annenMengde) {
 		JavaSetToMengde<T> resultat = new JavaSetToMengde<>();
 
-		resultat.Mengde.addAll(this.Mengde);
+		resultat.mengde.addAll(this.mengde);
 
 		for (T element : annenMengde.tilTabell()) {
 			resultat.leggTil(element);
@@ -57,32 +57,31 @@ public class JavaSetToMengde<T> implements MengdeADT<T> {
 	public MengdeADT<T> minus(MengdeADT<T> annenMengde) {
 		JavaSetToMengde<T> resultat = new JavaSetToMengde<>();
 
-		resultat.Mengde.addAll(this.Mengde);
+		resultat.mengde.addAll(this.mengde);
 
 		for (T element : annenMengde.tilTabell()) {
-			resultat.Mengde.remove(element);
+			resultat.mengde.remove(element);
 		}
 		return resultat;
 	}
 	public void leggTil(T element) {
-		Mengde.add(element);
+		mengde.add(element);
 	}
 	public void leggTilAlleFra(MengdeADT<T> annenMengde) {
 		for (T element : annenMengde.tilTabell()) {
-			Mengde.add(element);
+			leggTil(element);
 		}
 	}
 	public T fjern(T element) {
-		if (Mengde.remove(element)) {
+		if (mengde.remove(element)) {
 			return element;
 		}
 		return null;
 	}
 	public T[] tilTabell() {
-		return (T[]) Mengde.toArray(new Object[0]);
+		return (T[]) mengde.toArray((T[]) new Object[mengde.size()]);
 	}
-
 	public int antallElementer() {
-		return Mengde.size();
+		return mengde.size();
 	}
 }
