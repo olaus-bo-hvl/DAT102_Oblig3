@@ -10,7 +10,7 @@ public class TestJavaSetToMengde {
         mengde = new JavaSetToMengde<>();
     }
     @Test
-    public void testLeggTilOgErTom()
+    public void testLeggTilOgErTom() {
         assertTrue(mengde.erTom());
         mengde.leggTil(5);
         assertFalse(mengde.erTom());
@@ -22,7 +22,7 @@ public class TestJavaSetToMengde {
         Integer fjerne = mengde.fjern(10);
         assertEquals(10, fjerne);
         assertFalse(mengde.inneholder(10));
-        assertNull(mengde.fjerne(10));
+        assertNull(mengde.fjern(10));
     }
     @Test
     public void testAntallElementer() {
