@@ -29,7 +29,7 @@ public class TestJavaSetToMengde {
         assertEquals(0, mengde.antallElementer());
         mengde.leggTil(15);
         mengde.leggTil(15);
-        assertEquals(15, mengde.antallElementer());
+        assertEquals(1, mengde.antallElementer());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TestJavaSetToMengde {
         assertTrue(union.inneholder(30));
 
         JavaSetToMengde<Integer> snitt = (JavaSetToMengde<Integer>) mengde.snitt(mengdeTo);
-        assertEquals(20, snitt.antallElementer());
+        assertEquals(1, snitt.antallElementer());
         assertTrue(snitt.inneholder(25));
     }
     @Test
@@ -59,7 +59,7 @@ public class TestJavaSetToMengde {
         mengdeTo.leggTil(75);
 
         JavaSetToMengde<Integer> resultat = (JavaSetToMengde<Integer>) mengde.minus(mengdeTo);
-        assertEquals(75, resultat.antallElementer());
+        assertEquals(2, resultat.antallElementer());
         assertFalse(resultat.inneholder(75));
     }
 }
