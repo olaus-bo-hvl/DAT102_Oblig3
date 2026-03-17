@@ -30,7 +30,7 @@ public class HashSetVSBinarySearch{
         for(int i = 0; i < antSok; i++){
             sok[i]= random.nextInt(1000000);
         }
-        //Variabel for hvor mange ganger søketallet finnes
+        //Variabel for hvor mange ganger søketallet blir funnet
         int funnIHashset = 0;
         int funnISortTabell = 0;
 
