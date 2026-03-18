@@ -56,12 +56,15 @@ public class HashSetVSBinarySearch{
         long slutt2 = System.nanoTime();
 
         //Funn og tid blir skrevet ut
+        double tid1 = (double) (slutt1 - start1) /1000000;
+        double tid2 = (double) (slutt2 - start2)/1000000;
+
 
         System.out.println("Antall funn i HashSet: " + funnIHashset);
-        System.out.println("Tid brukt HashSet: " + (slutt1 - start1)/1000000 + " ms");//Nanosekunder blir omgjort til millisekunder
+        System.out.printf("Tid brukt HashSet: %.2f ms\n", tid1);//Nanosekunder blir omgjort til millisekunder
 
         System.out.println("Antall funn i sortert tabell: " + funnISortTabell);
-        System.out.println("Tid brukt sortert tabell: " + (slutt2 - start2)/1000000 + " ms");
+        System.out.printf("Tid brukt sortert tabell: %.2f ms", tid2);
 
     }
     /* OBSERVASJON
